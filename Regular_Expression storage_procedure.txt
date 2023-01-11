@@ -1,0 +1,136 @@
+SELECT name FROM salesperson_bhavya WHERE name REGEXP '^ro';
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP 'an$';
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP 'at?';
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP  'oh|at' ;
+
+select name from salesperson_bhavya where name regexp '[at]';
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP '[^jv]' ;
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP '[^mu]' ;
+
+select name from salesperson_bhavya where name regexp 'sal[[:>:]]';
+
+select name from salesperson_bhavya where name regexp '[[:<:]]roh';
+
+SELECT name FROM salesperson_bhavya WHERE name REGEXP '^[ks]' ;
+
+SELECT * FROM salesperson_bhavya WHERE name REGEXP '^.{6}' ;
+
+select * from salesperson_bhavya where name rlike 'k$|n$';
+
+select * from salesperson_bhavya where name not regexp '^[kv]';
+
+create PROCEDURE custdata
+as 
+begin 
+select * from customer_bhavya;
+END
+
+EXEC custdata;
+
+
+
+
+CREATE PROCEDURE custodata
+@company NVARCHAR(50)=''
+as 
+BEGIN
+select * from customer_bhavya
+WHERE company = @company;
+END
+
+EXEC custodata 'Tata';
+
+
+CREATE PROCEDURE salesrepsdata
+@designation NVARCHAR(50),
+@manager NVARCHAR(50)
+as 
+BEGIN
+select * from salesreps_bhavya
+WHERE designation = @designation
+and manager = @manager;
+END
+
+exec salesrepsdata 'HOD','Bank';
+
+create PROCEDURE insertinto
+
+ @recid int,
+ @firstname varchar(50) ,
+ @lastname varchar(45),
+ @company VARCHAR(45),
+ @state VARCHAR(45)
+ as
+ begin 
+ INSERT INTO bhavyadetail values 
+ (@recid, @firstname ,@lastname ,@company,@state )
+  end ;
+
+exec insertinto 6 , 'vishal' , 'Sharma','BMW' , 'Gujarat' ;
+
+CREATE PROCEDURE DELETEinto
+  @recid int 
+  with encryption
+  as 
+  begin
+  delete from bhavyadetail where recid = @recid;
+  end 
+
+  exec DELETEinto 1;
+  sp_helptext DELETEinto;
+
+create procedure loopdemo()
+    BEGIN
+	DECLARE x  INT;
+	DECLARE str  VARCHAR(255);
+        
+	SET x = 1;
+	SET str =  '';
+        
+	loop_label:  LOOP
+		IF  x > 10 THEN 
+			LEAVE  loop_label;
+		END  IF;
+            
+		SET  x = x + 1;
+		IF  (x mod 2) THEN
+			ITERATE  loop_label;
+		ELSE
+			SET  str = CONCAT(str,x,',');
+		END  IF;
+	END LOOP;
+	SELECT str;
+END
+
+CREATE TABLE calendars(
+    id INT primary key,
+    fulldate DATE UNIQUE,
+    day TINYINT NOT NULL,
+    month TINYINT NOT NULL,
+    quarter TINYINT NOT NULL,
+    year INT NOT NULL
+);
+
+
+CREATE PROCEDURE InsertCalendar(dt DATE)
+BEGIN
+    INSERT INTO calendars(
+        fulldate,
+        day,
+        month,
+        quarter,
+        year
+    )
+    VALUES(
+        dt, 
+        EXTRACT(DAY FROM dt),
+        EXTRACT(MONTH FROM dt),
+        EXTRACT(QUARTER FROM dt),
+        EXTRACT(YEAR FROM dt)
+    );
+END

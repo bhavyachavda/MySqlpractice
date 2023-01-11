@@ -1,0 +1,112 @@
+-Create Table
+
+Create Table traineedb.student_14(recid integer, Name varchar(45));
+
+CREATE TABLE traineedb.studentdetail_14 (
+   recid INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  studentid VARCHAR(45) NOT NULL,
+  standard VARCHAR(45) NOT NULL,
+  flagsex VARCHAR(45) NOT NULL,
+  PRIMARY KEY (recid)
+)
+
+
+CREATE TABLE traineedb.studentpresent_14 (
+  recid INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  studentid VARCHAR(45) NOT NULL,
+  month VARCHAR(45) NOT NULL,
+  present VARCHAR(45) NOT NULL,
+  PRIMARY KEY (recid)
+)
+
+
+
+CREATE TABLE traineedb.studenthours_14 (
+  recid INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  studentid VARCHAR(45) NOT NULL,
+  datex VARCHAR(45) NOT NULL,
+  hours VARCHAR(45) NOT NULL,
+  PRIMARY KEY (recid)
+)
+
+
+-insert value
+
+Insert Into traineedb.student_14
+values ("19", "Bhavya"),("20", "Deval"),("55","Keval");
+
+Insert Into traineedb.studentdetail_14
+values (19, "19dcs019", 12, "Male"),(20,"19dcs020", 11, "Male"),(64,"19dcs064", 10, "Female");
+
+Insert Into traineedb.studentpresent_14
+values (19, "19dcs019", "December", "Yes"),(20,"19dcs020", "November", "No"),(64,"19dcs064", "November", "Yes");
+
+Insert Into traineedb.studenthours_14
+values (19, "19dcs019", '2023-01-02', 9),(20,"19dcs020", '2001-10-22', 9),(64,"19dcs064", '2021-09-15', 8);
+
+
+-  Display following details for each student:
+Q1)
+	-   Name
+
+        -   Standard
+
+        -   Sex
+
+select traineedb.student_14.Name, traineedb.studentdetail_14.standard, traineedb.studentdetail_14.flagsex
+from traineedb.student_14 inner join traineedb.studentdetail_14
+on traineedb.student_14.recid = traineedb.studentdetail_14.recid;
+
+select s.name, st.standard, st.flagsex from traineedb.student_14 s join traineedb.studentdetail_14 st
+on s.recid = st.recid;
+
+Q2)Find SUM of student hours.
+select sum(hours) as TotalHours from traineedb.studenthours_14;
+
+select name as Name, sum(hours) as TotalHours from traineedb.studenthours_14 join traineedb.student_14
+on traineedb.studenthours_14.recid = traineedb.student_14.recid;
+
+
+Q3)Find Average Present of each student.
+select avg(present) as Present from traineedb.studentpresent_14;
+
+update traineedb.studentpresent_14 set present=5 where month = "November";
+
+Q4)Find Minimum present among all students.
+select min(present) as MinPresent from traineedb.studentpresent_14;
+
+Q5)Find Maximum present among all students.
+select max(present) as MaxPresent from traineedb.studentpresent_14;
+
+ Display fields like Name, Date, Hours from "studenthours" table where Date should be in following format :
+        
+        -   DD/MM/YY
+
+        -   MM/DD/YY
+
+        -   YYYY-MM-DD
+
+        -   MM/DD Day   
+   
+select name as Name, datex as Date, hours as Hours from traineedb.studenthours_14 join traineedb.student_14
+on traineedb.studenthours_14.recid = traineedb.student_14.recid;                       //YYYY-MM-DD
+
+update traineedb.studenthours_14 set datex='22/10/2001' where studentid = "19dcs019";
+update traineedb.studenthours_14 set datex='15/09/2011' where studentid = "19dcs020";
+
+select name as Name, datex as Date, hours as Hours from traineedb.studenthours_14 join traineedb.student_14
+on traineedb.studenthours_14.recid = traineedb.student_14.recid;                       //DD/MM/YYYY
+
+update traineedb.studenthours_14 set datex='10/22/01' where studentid = "19dcs019";
+update traineedb.studenthours_14 set datex='09/15/11' where studentid = "19dcs020";
+
+
+select name as Name, datex as Date, hours as Hours from traineedb.studenthours_14 join traineedb.student_14
+on traineedb.studenthours_14.recid = traineedb.student_14.recid;                       //MM/DD/YY
+
+update traineedb.studenthours_14 set datex='01/02 Monday' where studentid = "19dcs019";
+update traineedb.studenthours_14 set datex='01/01 Sunday' where studentid = "19dcs020";
+
+select name as Name, datex as Date, hours as Hours from traineedb.studenthours_14 join traineedb.student_14
+on traineedb.studenthours_14.recid = traineedb.student_14.recid;                       //MM/DD Day
+

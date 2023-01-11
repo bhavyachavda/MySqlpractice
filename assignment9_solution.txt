@@ -1,0 +1,80 @@
+	
+Table Used: 
+	
+	-   newstudent (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+
+==>
+CREATE TABLE traineedb.newstudent_14 (
+  recid INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  surname VARCHAR(45) NOT NULL,
+  firstname VARCHAR(45) NOT NULL,
+  middlename VARCHAR(45),
+  gender VARCHAR(45) NOT NULL,
+  admitdate VARCHAR(45) NOT NULL,
+  endeffdt VARCHAR(45),
+  PRIMARY KEY (recid)
+)
+==>
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate)
+values (1, "Patel", "Dev", "ManishBhai", "M", "2020-04-25");
+
+insert into newstudent_14 (recid, surname, firstname, gender, admitdate, endeffdt)
+values (2, "Shah", "Riya", "F", "2019-10-12", "2020-02-22");
+
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+values (3, "Lad", "Keval", "VishalBhai", "M", "2021-08-19", "2022-02-01");
+
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+values (4, "Patel", "Neha", "DevBhai", "F", "2010-07-12", "2011-04-09");
+
+insert into newstudent_14 (recid, surname, firstname, gender, admitdate)
+values (5, "Chavda", "Bhavya", "M", "2022-06-11");
+
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+values (6, "Desai", "Jay", "BhaveshBhai", "M", "2014-11-12", "2014-12-18");
+
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+values (7, "Shah", "Piyush", "RajeshBhai", "M", "2012-12-12", "2013-02-09");
+
+insert into newstudent_14 (recid, surname, firstname, middlename, gender, admitdate, endeffdt)
+values (8, "Dhoni", "Mehul", "NishantBhai", "M", "2008-10-18", "2008-12-01");
+
+insert into newstudent_14 (recid, surname, firstname, gender, admitdate, endeffdt)
+values (9, "Garchar", "Priya", "F", "2016-08-11", "2017-01-10");
+
+
+Q-1	List out the information of students whose surname is "Shah".
+	==>select * from newstudent_14 where surname="Shah";
+
+Q-2	List out the information of all the Male students.
+	==>select * from newstudent_14 where gender="M";
+
+Q-3	List out the information of all the Female students, whose surname is "Patel" or have 	been admitted after than 1-Jan-2006.
+	==>select * from newstudent_14 where gender="F" and admitdate>"2006-01-1";
+
+Q-4	List out the information of all the students whose second name ends with "Bhai".
+	==>select * from newstudent_14 where middlename like "%Bhai";
+
+Q-5	List out the information of all the students whose first name starts with "M" and second name has "ant".
+	==> select * from newstudent_14 where firstname like "M%" and middlename like "%ant%";
+	
+Q-6	List out the information of all the students whose surname has "c" in the fourth place.
+	==>select * from newstudent_14 where surname like "___c%"; 
+
+Q-7	List the name's of the all the students in "Ekta R. Patel" format.
+	==>select concat(firstname,'  ',LEFT(middlename,1),'.  ',surname)as Full_Name from newstudent_14;
+
+
+Q-8	List out First Name as well as its respective length for all the students.
+	==>select firstname, LENGTH(firstname) as Length from newstudent_14;
+ 
+
+Q-9	Append the First Name with "bhai" for all the male students whose First Name does not 	contain "bhai".
+	==>select concat(firstname,"bhai") as First_Name from newstudent_14 where gender="M";
+
+
+Q-10	List out First Name of all the male students with "Mr." before the First Name.
+	==>select concat("Mr.",firstname) as First_Name from newstudent_14 where gender="M";
+
+Q-11	List out First Name of all the students which sounds like "Mira".
+	==>select firstname from newstudent_14 where firstname sounds like 'Mira';

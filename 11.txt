@@ -1,0 +1,101 @@
+use traineedb;
+ create table product_bhavya19
+   (recid int not null primary key,
+   mfrid int not null,
+   description varchar(20),
+   price int, qty int);
+
+Insert Into product_bhavya19 (recid, mfrid, description, price, qty) values
+(1, 1, "PEN", 100, 60),
+(2, 2, "Pencil", 20, 10),
+(3, 3, "Watch", 500, 150);
+
+select * from product_bhavya19;
+
+ create table office_bhavya19
+   (recid int not null primary key, city varchar(20),
+   region varchar(40),
+   manager varchar(40),
+   targetsales int, actualsales int
+ );
+
+Insert Into office_bhavya19 (recid, city, region, manager, targetsales, actualsales) values
+(1, "Jaipur", "Science City", "Rakesh", 80000, 25000),
+(2, "nagpur", "Garden City", "Deval", 90000, 30000),
+(3, "Ahmedabad", "Metro Station", "Jayesh", 88000, 64000);
+
+select * from office_bhavya19;
+
+ Create Table salesreps_bhavya19
+ (recid int NOT NULL primary key,
+   name varchar(255),
+   officeid int, designation varchar(255),
+   hiredate date, manager varchar(255),
+   quota int,sales int, age int,
+   foreign key (officeid) references office_bhavya19(recid));
+
+Insert Into salesreps_bhavya19(recid, name, officeid, designation, hiredate, manager, quota, sales, age) values
+(1, "Kamlesh", 1, "Account manager", '2006-01-01', "Mehul", 10, 10000, 21),
+(2, "Rahul", 2, "Sales manager", '2002-12-24', "Raju", 11, 12000, 24),
+(3, "Bhavya", 3, "Account executive", '2004-10-10', "Rahul", 12, 11000, 22);
+
+select * from salesreps_bhavya19;
+
+create table customer_bhavya19
+   (recid int not null primary key, company varchar(25),
+   salesrepsid int not null, creditlimit int,
+   foreign key (salesrepsid) references salesreps_bhavya19(recid));
+
+Insert Into customer_bhavya19(recid, company, salesrepsid, creditlimit)values
+(1, "Tata", 1, 25000),
+(2, "BMW", 2, 32000),
+(3, "Audi", 3, 46000);
+
+select * from customer_bhavya19;
+
+create table orders_bhavya19
+   (recid int not null primary key,
+   customerid int,
+   orderdate date,
+   salesrepsid int,
+   productid int, qty int,
+   amount int
+   );
+
+Insert Into orders_bhavya19 (recid, customerid, orderdate, salesrepsid, productid, qty, amount) values
+(1, 1, '2015-11-23', 10, 1, 1, 12000),
+(2, 2, '2019-12-12', 11, 2, 2, 10000),
+(3, 3, '2020-07-08', 12, 3, 1, 8000);
+
+select * from orders_bhavya19;
+
+select sale.name, off.city, COUNT(cs.recid) as NuCustomers, sale.hiredate, sale.age from customer_bhavya19 as cs inner join salesreps_bhavya19
+    as sale on cs.salesrepsid = sale.recid inner join office_bhavya19 as off on sale.officeid = off.recid
+    where hiredate<('2007-01-01') and age > 20 and city LIKE '%pur' group by sale.recid having count(cs.recid>=1);
+
+select cs.company, sr.name, off.city, cs.creditlimit from customer_bhavya19 as cs
+    inner join salesreps_bhavya19 as sr on cs.salesrepsid=sr.recid inner join office_bhavya19 as off
+    on sr.officeid = off.recid;
+
+select of.city,count(sa.officeid) as NuSalesRep,sum(sa.sales)as TotalSale, of.targetsales,of.actualsales,(of.targetsales-of.actualsales) as diff
+from office_bhavya19 as of inner join salesreps_bhavya19 as sa
+on of.recid = sa.officeid
+group by officeid;
+
+select description,price,qty,count(productid),sum(qtyonhand),sum(amount)
+    from product_bhavya19 as pro inner join orders_bhavya19 as ord
+    on pro.recid = ord.productid
+    group by productid;
+
+select company,sum(qty),sum(amount)
+from customer_bhavya19 as cus inner join orders_bhavya19 as ord
+on cus.recid = ord.customerid
+group by ord.customerid;
+
+select name,hiredate,quota,sales from salesreps_bhavya19
+where hiredate>subdate(now(),interval 5 year);
+
+select description,count(productid)
+from product_bhavya19 as pro inner join orders_bhavya19 as o
+on pro.recid=o.productid
+group by productid;

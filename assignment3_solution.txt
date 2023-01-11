@@ -1,0 +1,67 @@
+-Create Table
+
+Create Table traineedb.product_14(recid integer, Name varchar(45));
+
+-insert value in traineedb.product_14
+
+Insert Into traineedb.product_14
+values ("19", "Bhavya"),("20", "Deval"),(64,"Keval");
+
+-Display data of traineedb.product_14
+
+select * from traineedb.product_14;
+
+-Create table
+
+CREATE TABLE traineedb.productprice_14 (
+  recid INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  productid VARCHAR(45) NOT NULL,
+  code VARCHAR(45) NOT NULL,
+  effdt VARCHAR(45) NOT NULL,
+  price INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (recid)
+)
+
+
+-Insert value in traineedb.productprice_14
+
+Insert Into traineedb.productprice_14
+values (19, "19dcs019", "C++", '2023-01-02', 299),
+(20, "19dcs020", "Java", '2022-11-22', 499),
+(64, "19dcs064", "C++", '2021-01-02', 399);
+
+
+-Display data of traineedb.productprice_14
+
+select * from traineedb.productprice_14;
+
+
+-   Modification requirement:
+//q1.Change value of 'student.name' with any other value for student.recid = 3.
+=>update traineedb.student_14 set name="Rahul" where recid = 55;
+
+//q2.Update all "student" records to append character " A." as the middle name for "student.name" field.
+=>update traineedb.student_14 set name = concat(name, 'A');
+
+//q3.Update all "productprice" records to add 25.00 in "price" field.
+=>update traineedb.productprice_14 set price = price + (price * 25.0 / 100.0);
+
+//q4.Update "product" table to add "A" in 'product.name' where related 'product.code = java'.
+=>update product_14 set name = concat(name,"A")
+where recid IN (Select recid from productprice_14 where code = "java");
+
+//q5.Update all "studentpresent" records to add 2 in 'studentpresentpresent' where related 'studenthours.hours >= 8'.
+=>update studentpresent_14 set present=present+2
+where studentId in (select studentId from studenthours_14 where hours>=8);
+
+
+ -   Delete requirement:
+        
+        //q1.  Remove a record from "product" table where 'product.recid = 64'
+	=>delete from product_14 where recid=64;
+        
+        //q2. Remove all "student" records where the 'student.name' starts with character "R".
+		=>delete from student_14 where name like "R%";
+        
+        //q3. Remove all "studentdetails" record where related 'studenthours.hours <= 8'.
+		=>delete from studentdetail_14 where recid in(select recid from studenthours_14 where hours<=8);

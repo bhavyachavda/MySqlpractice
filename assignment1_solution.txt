@@ -1,0 +1,105 @@
+-Create Table
+
+Create Table student_details_14(Name varchar(45), Standard int, sex varchar(45), Monthly_Present varchar(45), Daily_Hours int);
+
+ 
+Create Table products_14(Name varchar(45), Price varchar(45));
+
+
+Create Table Materials_14(Name varchar(45), Price varchar(45), Effective_Date DATETIME);
+
+
+ 
+
+- Insert Record in Each table
+
+
+Insert Record in student_details_14
+
+
+Insert Into traineedb.student_Details_14 (Name, Standard, sex, Monthly_Present, Daily_Hours) values ("Bhavya", 12, "Male", "Yes",  9);
+
+Insert Into traineedb.student_details_14 (Name, Standard, sex, Monthly_Present, Daily_Hours) values ("Deval", 10, "Male", "Yes",  9);
+
+Insert Into traineedb.student_details_14 (Name, Standard, sex, Monthly_Present, Daily_Hours) values ("Hardik", 11, "Male", "Yes",  8);
+
+ 
+
+
+- Display all the records for Student_Details_1 tables
+
+select * from traineedb.student_details_14;
+
+ 
+- Insert Record in products_14
+
+Insert Into products_14 (Name, Price) values ("Bhavya", 99);
+
+Insert Into products_14 (Name, Price) values ("Deval", 499);
+
+Insert Into Products_14 (Name, Price) values ("Hardik", 999);
+
+ 
+
+ 
+
+
+- Display all records of products_14
+
+ 
+Select * from traineedb.products_14;
+
+ 
+
+ 
+
+- Insert Record in Materials_14
+
+ 
+
+Insert Into traineedb.Materials_14
+values ("Bhavya", "Rs.100", '2023-02-02'), 
+("Deval", "Rs.200", '2023-03-01'), 
+("Hardik", "Rs.500", '2023-01-01');
+
+
+
+- Display all records of Materials_14
+
+ 
+
+Select * from traineedb.Materials_14;
+
+ 
+
+ 
+
+- Remove all the records from each tables (with and without using DELETE statement).
+
+ 
+
+delete from traineedb.student_details_14 where Name = "Bhavya";
+ 
+delete from traineedb.product_14 where Name = "Deval";
+
+delete from traineedb.Materials_14 where Price = "Rs.500";
+
+ 
+
+TRUNCATE TABLE traineedb.student_details_14;
+
+TRUNCATE TABLE traineedb.products_14;
+
+TRUNCATE TABLE traineedb.Materials_14
+
+ 
+
+- Delete all the above tables.
+
+ 
+
+Drop Table traineedb.student_details_14;
+
+Drop Table traineedb.products_14;
+
+Drop Table traineedb.Materials_14;

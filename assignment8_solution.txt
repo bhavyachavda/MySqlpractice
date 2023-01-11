@@ -1,0 +1,82 @@
+Q-1	I want to add 3 days to the current date. Write all possible queries to perform this operation. Explain each one of them.
+	==>SELECT DATE_ADD("2023-01-04", INTERVAL 3 DAY) as Updated_Date;
+	==>SELECT DATE_ADD(CURDATE(), INTERVAL 3 DAY) AS UPDATED_DATE;
+
+Q-2	I want to add 3 years to the current date. Write all possible queries to perform this operation. Explain each one of them.
+	==>SELECT DATE_ADD("2023-01-04", INTERVAL 3 YEAR) AS UPDATED_YEAR; 
+	==>SELECT DATE_ADD(CURDATE(), INTERVAL 3 YEAR) AS UPDATED_YEAR;
+
+Q-3	I want to add 3 months to the current date. Write all possible queries to perform this operation. Explain each one of them.
+	==>SELECT DATE_ADD("2023-01-04", INTERVAL 3 MONTH) AS UPDATED_MONTH;
+	==>SELECT DATE_ADD(CURDATE(), INTERVAL 3 MONTH) AS UPDATED_MONTH;
+
+Q-4	I want to deduct 2 days from the current date.  Write all possible queries to perform this operation. Explain each one of them.
+	==>SELECT (CURRENT_DATE - INTERVAL 2 DAY) AS UPDATE_DATE;
+	==>SELECT DATE_SUB("2023-01-04", INTERVAL 2 DAY) AS UPDATE_DATE;
+
+Q-5	Write a query to add 5 days and 15 hours to date and time "2007-01-26 12:30:45".
+	==>Select Addtime("2007-01-26 12:30:45", "15:0:0")
+
+Q-6	Write all possible queries which will return current date.
+	==>select NOW() AS "NEW DATE ";              //WITH TIME
+    	==>select CURDATE() AS "NEW DATE ";         //DATE
+    	==>select DATE(now()) AS "NEW DATE ";      //WITHOUT TIME
+    	==>select DATE(CURDATE()) AS "NEW DATE "; //DATE
+    	==>select UTC_DATE() AS "NEW DATE ";     //DATE
+
+Q-7	Write all possible queries which will return current time.
+	==>SELECT CURTIME() AS CURRENTTIME; 
+	==>SELECT CURRENT_TIMESTAMP();
+	==>SELECT NOW();
+
+Q-8	Input Date is "2007-01-26 12:30:45". Write queries to output following date formats:
+
+	- "January 26, 2007"      ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%M %d, %Y") AS DATE;
+	- "The 26th of January"	  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", The "%D of %M") AS DATE;
+	- 2007                    ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%Y") AS ONLYYEAR;
+	- 07			  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%y");
+	- 26/1/7		  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%c/%y");  
+	- 26/01/07		  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y");
+	- 26/01/2007		  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%Y");
+	- 01/26/07		  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%m/%d/%y");
+	- 26/01/07 12:30:45	  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y  %h:%i:%s");
+	- 26/01/07 12:30:45 PM	  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y  %h:%i:%s %p"); 
+				  ==>SELECT DATE_FORMAT("2007-01-26 12:30:45", "%d/%m/%y %r");
+
+
+Q-9	Input Date is "2007-01-26 12:30:45". Write queries to output following date formats:
+
+	- Friday				   ==>SELECT DAYNAME("2007-01-26 12:30:45") AS DAYNAME;
+	- 26 (Explanation: 26th day of the month)  ==>SELECT DAYOFMONTH("2007-01-26 12:30:45") AS DAYMONTH; 
+	- 6 (Explanation: 6th day of the week)	   ==>SELECT DAYOFWEEK("2007-01-26 12:30:45") AS DAYWEEK;
+	- 26 (Explanation: 26th day of the year)   ==>SELECT DAYOFYEAR("2007-01-26 12:30:45") AS DAYYEAR;
+
+
+Q-10	Explain UNIX_TIMESTAMP and FROM_UNIXTIME functions with examples.
+	==>UNIX_TIMESTAMP() :
+	Even if you pass the current date/time or another specified date/time, the function will return a Unix timestamp based on that.
+	Example 
+	SELECT UNIX_TIMESTAMP() As TimeStamp; 
+
+	==>FROM_UNIXTIME() :
+	This function in MySQL helps to return date /DateTime representation of a Unix timestamp. 
+	The format of returning value will be ‘YYYY-MM-DD HH:MM:SS’ or ‘YYYYMMDDHHMMSS’, depending on the context of the function.
+	Example
+	SELECT FROM_UNIXTIME(599462400) AS Unix;
+
+
+Q-11	Write the output of the following query and explain it.
+
+	SELECT PERIOD_ADD(200601, 3);   ==>200604
+	The PERIOD_ADD() function adds a specified number of months to a period.
+	The PERIOD_ADD() function will return the result formatted as YYYYMM.
+
+
+Q-12	Write the output of the following query and explain it.
+
+	SELECT PERIOD_DIFF(200601, 200609);  ==>-8
+	The PERIOD_DIFF() function returns the difference between two periods. The result will be in months.
+
+Q-13	Explain the use of "LAST_INSERT_ID()" function in real life applications.
+	==>SELECT LAST_INSERT_ID();
+	The LAST_INSERT_ID() function returns the AUTO_INCREMENT id of the last row that has been inserted or updated in a table.

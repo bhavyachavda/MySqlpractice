@@ -1,0 +1,47 @@
+-- create table [tb1employee]
+-- (
+--     [id] int PRIMARY key,
+--     [name] NVARCHAR(50),
+--     [salary] int,
+--     [gender] NVARCHAR(50),
+--     [city] NVARCHAR(50)
+-- )
+
+-- EXEC sp_helpindex tb1employee;
+
+-- insert into tb1employee values(3,'Bhavya',45000,'Male','Rajkot')
+-- insert into tb1employee values(2,'Neha',35000,'FeMale','Surat')
+-- insert into tb1employee values(1,'Deval',50000,'Male','Nadiad')
+-- insert into tb1employee values(4,'Rahul',40000,'Male','Rajkot')
+-- insert into tb1employee values(5,'Riya',22000,'FeMale','Junagadh')
+-- insert into tb1employee values(7,'Rakesh',25000,'Male','Surat')
+-- insert into tb1employee values(6,'Raj',32000,'Male','Rajkot')
+-- insert into tb1employee values(8,'Payal',28000,'FeMale','Anand')
+
+-- select * from tb1employee;
+
+-- drop index tb1employee.PK_tb1emplo_3213E83F74BC471C
+
+-- select name, gender, salary,
+-- LEAD(salary,2,-1) over (ORDER by salary) as lead,
+-- LAG(salary,2,-1) over (ORDER by salary) as lag
+-- from tb1employee;
+
+-- select name, gender, salary,
+-- LEAD(salary,1,-1) over (partition by gender ORDER by salary) as lead,
+-- LAG(salary,1,-1) over (partition by gender ORDER by salary) as lag
+-- from tb1employee;
+
+-- update tb1employee set salary = 50000 where id = 3;
+
+-- select format(123456789,'###,###,###')
+
+-- select name,gender,salary,
+-- rank() over (order by salary desc) as [rank],
+-- DENSE_RANK() over (order by salary desc) as [DENSERANK]
+-- from tb1employee;
+
+select name,gender,salary,
+rank() over (partition by gender order by salary desc) as [rank],
+DENSE_RANK() over (partition by gender order by salary desc) as [DENSERANK]
+from tb1employee;
